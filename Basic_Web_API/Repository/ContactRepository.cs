@@ -54,9 +54,12 @@ namespace Basic_Web_API.Repository
             return _context.Contacts.ToList();
         }
 
-        public Contact GetContactsWithCompanyAndCountry()
+        public Contact GetContactsWithCompanyAndCountry(int id)
         {
-            throw new NotImplementedException();
+            var contact = _context.Contacts
+                .Where(c => c.ContactId == id).FirstOrDefault();
+
+            return contact;
         }
 
         public Contact Update(Contact contact)

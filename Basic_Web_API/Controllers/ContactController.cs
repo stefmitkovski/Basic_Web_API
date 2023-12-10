@@ -36,8 +36,9 @@ namespace Basic_Web_API.Controllers
             return Ok(contacts);
         }
 
-        [HttpGet("{companyId?}/{countryId?}")]
-        // GET: api/Contact
+        [HttpGet("Filter/{companyId?}/{countryId?}")]
+        [ProducesResponseType(200, Type = typeof(IEnumerable<Contact>))]
+        // GET: api/Contact/Filter/{companyId?}/{countryId?}
         public IActionResult FilterContacts(int? companyId = 0, int? countryId = 0)
         {
             // if both companyId and countryId are zero
@@ -47,6 +48,19 @@ namespace Basic_Web_API.Controllers
             }
 
             return Ok(_mapper.Map<List<UpdateContactDto>>(_contactRepository.FilterContacts(companyId, countryId)));
+        }
+
+        [HttpGet("Specific/{id}")]
+        [ProducesResponseType(200, Type = typeof(IEnumerable<Contact>))]
+        // GET: api/Contact/Specific/{id}
+        public IActionResult GetContactsWithCompanyAndCountry(int id)
+        {
+            var contact = _contactRepository.GetContactsWithCompanyAndCountry(id);
+            if (contact == null)
+            {
+                return NotFound();
+            }
+            return Ok(_mapper.Map<UpdateContactDto>(contact));
         }
 
         [HttpPost]

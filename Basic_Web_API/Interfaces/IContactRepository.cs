@@ -8,7 +8,7 @@ namespace Basic_Web_API.Interfaces
         Contact Update(Contact contact);
         void Delete(int id);
         List<Contact> Get();
-        Contact GetContactsWithCompanyAndCountry();
+        Contact GetContactsWithCompanyAndCountry(int id);
         List<Contact> FilterContacts(int? countryId, int? companyId);
     }
 }
